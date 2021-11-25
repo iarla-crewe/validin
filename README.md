@@ -3,6 +3,11 @@ Console input validator for python, allows for any condition to be checked in a 
 
 
 ## Docs (temporary):
+    ```
+    import input_validator as inpt
+    from input_validator import get_input
+    ```
+
     Use get_input to get valid user input
 
     Input validators:
