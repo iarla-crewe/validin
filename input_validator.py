@@ -1,49 +1,63 @@
-"""
-Use get_input to get valid user input
-
-Input validators:
-- IsNaturalNum
-- IsNaturalNumLessThan
-- IsLetters
-- IsLettersAndSymbols
-- IsAlphanumeric
-- IsAlphanumericAndSymbols
-- IsOption
-
-To create a new validator, just create a class that inherits from InputCondition
-"""
-
-
 from abc import ABC, abstractmethod
 
 
 def _list_as_str(list: list) -> str: 
-    """Joins together options into a string, seperated by commas"""
+    """Joins together options into a string, seperated by commas."""
     return ", ".join(list)
 
 
 def _remove_chars(string: str, *chars: str) -> str:
-    """Removes all given chars from a string and returns result"""
+    """Removes all given chars from a string and returns result."""
     for char in chars: 
         string = string.replace(char, "")
     return string
 
-class InputCondition(ABC):
+
+class InputValidator(ABC):
     """A abstract class for conditions that validate user input."""
     @abstractmethod
     def is_valid(self, input: str) -> bool:
-        """Returns true if the inputs passes the class's condition"""
+        """Returns true if the inputs passes the class's condition."""
         pass
 
     @abstractmethod
     def get_invalid_msg(self) -> str:
-        """Returns a message to display if input is invalid"""
+        """Returns a message to display if input is invalid."""
         pass
 
 
-#region Input validators
+class NewInputValidator(InputValidator):
+    """A generic class for creating custom validators.
+        
+    Args:
+        condition (function): The function that will be ran to check if input is valid. Must return a bool.
+        *condition_args (any, optional): Arguments passed into the condition function, eg: min/max values, invalid chars etc.
+        invalid_msg (str, optional): Message to be displayed if user enters invalid input.
+    """
+    _condition: object
+    _args: tuple
+    _invalid_msg: str
 
-class IsNaturalNum(InputCondition):
+    def __init__(self, condition: object, *condition_args, invalid_msg: str="") -> None:
+        self._condition = condition
+        self._args = condition_args
+        self._invalid_msg = invalid_msg
+
+    def is_valid(self, input: str) -> bool:
+        if not self._args: 
+            result = self._condition(input)
+        else: 
+            result = self._condition(input, *self._args)
+        return result
+
+    def get_invalid_msg(self) -> str:
+        return self._invalid_msg
+
+
+#region Input Validators
+
+
+class IsNaturalNum(InputValidator):
     """Input validator that returns true if the input is a natural number"""
     def is_valid(self, input: str) -> bool:
         return (input.isdigit() and float(input).is_integer and int(input) > 0)
@@ -69,7 +83,7 @@ class IsNaturalNumLessThan(IsNaturalNum):
         return f"Must be a whole number between 0 and {self.limit}"
 
 
-class IsLetters(InputCondition):
+class IsLetters(InputValidator):
     """Input validator that returns true if the input contains only letters and spaces"""
     def is_valid(self, input: str) -> bool:
         return input.replace(" ", "").isalpha()
@@ -78,7 +92,7 @@ class IsLetters(InputCondition):
         return "Must only contain letters"
 
 
-class IsLettersAndSymbols(InputCondition):
+class IsLettersAndSymbols(InputValidator):
     """Input validator that returns true if the input contains only letters, spaces, and the given symbols
     
     Args:
@@ -96,7 +110,7 @@ class IsLettersAndSymbols(InputCondition):
         return f"Must only contain letters and {_list_as_str(self.symbols)}"
 
 
-class IsAlphanumeric(InputCondition):
+class IsAlphanumeric(InputValidator):
     """Input validator that returns true if the input contains only letters, numbers and spaces"""
     def is_valid(self, input: str) -> bool:
         return input.replace(" ", "").isalnum()
@@ -105,7 +119,7 @@ class IsAlphanumeric(InputCondition):
         return "Must only contain letters or numbers"
 
 
-class IsAlphanumericAndSymbols(InputCondition):
+class IsAlphanumericAndSymbols(InputValidator):
     """Input validator that returns true if the input contains only 
         letters, numbers, spaces, and the given symbols
         
@@ -124,7 +138,7 @@ class IsAlphanumericAndSymbols(InputCondition):
         return f"Must only contain letters, numbers and {_list_as_str(self.symbols)}"
 
 
-class IsOption(InputCondition):
+class IsOption(InputValidator):
     """Input validator that returns true if the input is exactly one of the given options
     
     Args:
@@ -144,7 +158,7 @@ class IsOption(InputCondition):
 #endregion
 
 
-def get_input(prompt: str, condition: InputCondition, *condition_args, bold_input: bool=True) -> str:
+def get_input(prompt: str, condition: InputValidator, bold_input: bool=True) -> str:
     """Gets the users input and only returns one that passes the input condition
     
     Args:
