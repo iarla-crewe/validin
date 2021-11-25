@@ -1,4 +1,4 @@
-from input_validator import InputValidator
+from validin import InputValidator
 from utils.utils import list_as_str, remove_chars
 
 class NewValidator(InputValidator):
