@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class InputValidator(ABC):
-    """A abstract class for conditions that validate user input."""
+    """An abstract class for conditions that validate user input."""
     @abstractmethod
     def is_valid(self, input: str) -> bool:
         """Returns true if the inputs passes the class's condition."""
@@ -25,9 +25,7 @@ def get_input(prompt: str, condition: InputValidator, bold_input: bool=True) -> 
     """
     BOLD_START = "\033[1m"                                      # Chars that start bold text in standard output
     BOLD_END = "\033[0m"                                        # Chars that end formatting in standard output
-
-    format = ""
-    if bold_input: format = BOLD_START
+    format = BOLD_START if bold_input else ""                   # Set formatting if bold_input is True
 
     while True:
         raw_input: str = input(f"{prompt}{format}")             # Get and format user's input

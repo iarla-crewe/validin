@@ -8,3 +8,4 @@ def remove_chars(string: str, *chars: str) -> str:
     for char in chars: 
         string = string.replace(char, "")
     return string
+    

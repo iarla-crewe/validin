@@ -1,7 +1,7 @@
 from input_validator import InputValidator
 from utils.utils import list_as_str, remove_chars
 
-class NewInputValidator(InputValidator):
+class NewValidator(InputValidator):
     """A generic class for creating custom validators.
         
     Args:
