@@ -13,7 +13,7 @@ class NewValidator(InputValidator):
     _args: tuple
     _invalid_msg: str
 
-    def __init__(self, condition: object, *condition_args, invalid_msg: str="") -> None:
+    def __init__(self, condition, *condition_args, invalid_msg: str="") -> None:
         self._condition = condition
         self._args = condition_args
         self._invalid_msg = invalid_msg
