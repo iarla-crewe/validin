@@ -18,7 +18,7 @@ def get_input(prompt: str, condition: InputValidator=None, bold: bool=True) -> s
     """Gets the users input and only returns once they have provided an input that passes the condition
     
     Args:
-        prompt (str): Str written to standard output in front of the user input.
+        prompt (str): String written to standard output in front of the user input.
         condition (InputCondition, optional): An InputCondition subclass used to check if inputted data is valid
             (Accepts all inputs if set to None)
         *condition_args (any, optional): Arguments passed into the InputCondition.
