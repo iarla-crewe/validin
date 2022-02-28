@@ -1,4 +1,3 @@
-from email import utils
 from validin import validators as valid
 from validin import utils
 
