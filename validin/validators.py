@@ -1,5 +1,5 @@
-from validin import InputValidator
-from utils import list_as_str, remove_chars
+from validin.validin import InputValidator
+from validin.utils import list_as_str, remove_chars
 
 
 class NewValidator(InputValidator):
@@ -31,8 +31,9 @@ class NewValidator(InputValidator):
 
 
 class IsNaturalNum(InputValidator):
-    """Input validator that returns true if the input is a natural number"""
+    """Input validator that returns true if the input is a natural number. Ignores whitespace on either side of input"""
     def is_valid(self, input: str) -> bool:
+        input = input.strip()
         return (input.isdigit() and float(input).is_integer and int(input) > 0)
 
     def get_invalid_msg(self) -> str:
@@ -40,7 +41,7 @@ class IsNaturalNum(InputValidator):
 
 
 class IsNaturalNumLessThan(IsNaturalNum):
-    """Input validator that returns true if the input is a natural number less than a given limit
+    """Input validator that returns true if the input is a natural number less than a given limit. Ignores whitespace on either side of input
     
     Args:
         limit (str): Input must be lower than this number
@@ -50,6 +51,7 @@ class IsNaturalNumLessThan(IsNaturalNum):
         self.limit = limit
 
     def is_valid(self, input: str) -> bool:
+        input = input.strip()
         return (super().is_valid(input) and int(input) < self.limit)
 
     def get_invalid_msg(self) -> str:

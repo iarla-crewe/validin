@@ -13,15 +13,17 @@ def test_utils():
 
 
 def test_IsNaturalNum():
-    assert valid.IsNaturalNum.is_valid("2") == True
-    assert valid.IsNaturalNum.is_valid("4321894523432732454315") == True
-    assert valid.IsNaturalNum.is_valid("1 ") == True
-    assert valid.IsNaturalNum.is_valid("  49 ") == True
+    condition = valid.IsNaturalNum()
+    
+    assert condition.is_valid("2") == True
+    assert condition.is_valid("4321894523432732454315") == True
+    assert condition.is_valid("1 ") == True
+    assert condition.is_valid("  49 ") == True
 
-    assert valid.IsNaturalNum.is_valid("0") == False
-    assert valid.IsNaturalNum.is_valid("-2") == False
-    assert valid.IsNaturalNum.is_valid("14.13") == False
-    assert valid.IsNaturalNum.is_valid("") == False
-    assert valid.IsNaturalNum.is_valid("foo") == False
-    assert valid.IsNaturalNum.is_valid("3f") == False
-    assert valid.IsNaturalNum.is_valid("1 0") == False
+    assert condition.is_valid("0") == False
+    assert condition.is_valid("-2") == False
+    assert condition.is_valid("14.13") == False
+    assert condition.is_valid("") == False
+    assert condition.is_valid("foo") == False
+    assert condition.is_valid("3f") == False
+    assert condition.is_valid("1 0") == False
