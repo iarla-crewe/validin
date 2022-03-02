@@ -27,3 +27,21 @@ def test_IsNaturalNum():
     assert condition.is_valid("foo") == False
     assert condition.is_valid("3f") == False
     assert condition.is_valid("1 0") == False
+
+def test_IsNaturalNumLessThan():
+    pass
+
+def test_IsLetters():
+    pass
+
+def test_IsLettersAndSymbols():
+    pass
+
+def test_IsAlphanumeric():
+    pass
+
+def test_IsAlphanumericAndSymbols():
+    pass
+
+def test_IsOption():
+    pass
