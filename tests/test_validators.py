@@ -21,6 +21,8 @@ def test_IsNaturalNum():
     assert condition.is_valid("1 ") == True
     assert condition.is_valid("  49 ") == True
 
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
     assert condition.is_valid("0") == False
     assert condition.is_valid("-2") == False
     assert condition.is_valid("14.13") == False
@@ -38,6 +40,8 @@ def test_IsNaturalNumLessThan():
     condition = valid.IsNaturalNumLessThan("5")
     assert condition.is_valid("4") == True
     assert condition.is_valid("1") == True
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
     assert condition.is_valid("0") == False
     assert condition.is_valid("14") == False
     assert condition.is_valid("Three") == False
@@ -46,8 +50,9 @@ def test_IsNaturalNumLessThan():
 
     condition = valid.IsNaturalNumLessThan("1.3")
     assert condition.is_valid("1") == True
-    assert condition.is_valid("2") == False
     assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
+    assert condition.is_valid("2") == False
 
 
 def test_IsLetters():
@@ -58,8 +63,8 @@ def test_IsLetters():
     assert condition.is_valid("            s                                                            m") == True
     
     assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
     assert condition.is_valid("abcd567") == False
-    assert condition.is_valid("  ") == False
     assert condition.is_valid("Hello.there") == False
     assert condition.is_valid("a'") == False
 
@@ -67,14 +72,26 @@ def test_IsLetters():
 def test_IsLettersAndSymbols():
     condition = valid.IsLettersAndSymbols("")
 
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
+
 
 def test_IsAlphanumeric():
     condition = valid.IsAlphanumeric()
+
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
 
 
 def test_IsAlphanumericAndSymbols():
     condition = valid.IsAlphanumericAndSymbols("")
 
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
+
 
 def test_IsOption():
     condition = valid.IsOption("", "")
+
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
