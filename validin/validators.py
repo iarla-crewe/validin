@@ -1,5 +1,5 @@
 from validin.validin import InputValidator
-from validin.utils import list_as_str, remove_chars
+from validin.utils import seperate_by_commas, remove_chars
 
 
 class NewValidator(InputValidator):
@@ -74,18 +74,18 @@ class IsLettersAndSymbols(InputValidator):
     """Input validator that returns true if the input contains only letters, spaces, and the given symbols
     
     Args:
-        *symbols (str): The special characters allowed in the input
+        symbols (str): The special characters allowed in the input, eg: "!.,?"
     """
-    symbols: tuple[str]
-    def __init__(self, *symbols: str) -> None:
+    symbols: str
+    def __init__(self, symbols: str) -> None:
         self.symbols = symbols
 
     def is_valid(self, input: str) -> bool:
-        input = remove_chars(input, *self.symbols)
+        input = remove_chars(input, self.symbols)
         return input.replace(" ", "").isalpha()
 
     def get_invalid_msg(self) -> str:
-        return f"Must only contain letters and {list_as_str(self.symbols)}"
+        return f"Must only contain letters and {seperate_by_commas(self.symbols)}"
 
 
 class IsAlphanumeric(InputValidator):
@@ -102,18 +102,18 @@ class IsAlphanumericAndSymbols(InputValidator):
         letters, numbers, spaces, and the given symbols
         
         Args:
-            *symbols (str): The special characters allowed in the input
+            symbols (str): The special characters allowed in the input, eg: "!.,?"
         """
-    symbols: tuple[str]
-    def __init__(self, *symbols: str) -> None:
+    symbols: str
+    def __init__(self, symbols: str) -> None:
         self.symbols = symbols
 
     def is_valid(self, input: str) -> bool:
-        input = remove_chars(input, *self.symbols)
+        input = remove_chars(input, self.symbols)
         return input.replace(" ", "").isalnum()
 
     def get_invalid_msg(self) -> str:
-        return f"Must only contain letters, numbers and {list_as_str(self.symbols)}"
+        return f"Must only contain letters, numbers and {seperate_by_commas(self.symbols)}"
 
 
 class IsOption(InputValidator):
@@ -130,4 +130,4 @@ class IsOption(InputValidator):
         return (input in self.options)
 
     def get_invalid_msg(self) -> str:
-        return f"Must be one of the following: {list_as_str(self.options)}"
+        return f"Must be one of the following: {seperate_by_commas(self.options)}"

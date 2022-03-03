@@ -4,9 +4,9 @@ from validin import utils
 
 
 def test_utils():
-    assert utils.list_as_str(["foo"]) == "foo"
-    assert utils.list_as_str([".12", "xyz"]) == ".12, xyz"
-    assert utils.list_as_str(["a", "b", "100", "   "]) == "a, b, 100,    "
+    assert utils.seperate_by_commas(["foo"]) == "foo"
+    assert utils.seperate_by_commas([".12", "xyz"]) == ".12, xyz"
+    assert utils.seperate_by_commas(["a", "b", "100", "   "]) == "a, b, 100,    "
 
     assert utils.remove_chars("This is a test string", " ") == "Thisisateststring"
     assert utils.remove_chars("This is a test string", "aeiou") == "Ths s  tst strng"

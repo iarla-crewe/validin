@@ -1,6 +1,6 @@
-def list_as_str(list: list) -> str: 
+def seperate_by_commas(list) -> str: 
     """Utility method used by some build-in validators.
-    Joins together options into a string, seperated by commas."""
+    Joins together lists and seperates strings by commas."""
     return ", ".join(list)
 
 
