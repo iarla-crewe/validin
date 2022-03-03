@@ -48,7 +48,10 @@ class IsNaturalNumLessThan(IsNaturalNum):
     """
     limit: int
     def __init__(self, limit: int) -> None:
-        self.limit = limit
+        try:
+            self.limit = float(limit)
+        except:
+            raise TypeError
 
     def is_valid(self, input: str) -> bool:
         input = input.strip()

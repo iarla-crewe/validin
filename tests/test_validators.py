@@ -1,3 +1,4 @@
+import pytest
 from validin import validators as valid
 from validin import utils
 
@@ -28,20 +29,41 @@ def test_IsNaturalNum():
     assert condition.is_valid("3f") == False
     assert condition.is_valid("1 0") == False
 
+
 def test_IsNaturalNumLessThan():
-    pass
+    with pytest.raises(TypeError):
+        valid.IsNaturalNumLessThan("foo")
+    
+    condition = valid.IsNaturalNumLessThan("5")
+    assert condition.is_valid("4") == True
+    assert condition.is_valid("1") == True
+    assert condition.is_valid("0") == False
+    assert condition.is_valid("14") == False
+    assert condition.is_valid("Three") == False
+    assert condition.is_valid("2.567") == False
+    assert condition.is_valid("-1") == False
+
+    condition = valid.IsNaturalNumLessThan("1.3")
+    assert condition.is_valid("1") == True
+    assert condition.is_valid("2") == False
+    assert condition.is_valid("") == False
+
 
 def test_IsLetters():
-    pass
+    condition = valid.IsLetters()
+
 
 def test_IsLettersAndSymbols():
-    pass
+    condition = valid.IsLettersAndSymbols()
+
 
 def test_IsAlphanumeric():
-    pass
+    condition = valid.IsAlphanumeric()
+
 
 def test_IsAlphanumericAndSymbols():
-    pass
+    condition = valid.IsAlphanumericAndSymbols()
+
 
 def test_IsOption():
-    pass
+    condition = valid.IsOption()
