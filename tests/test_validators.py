@@ -28,6 +28,7 @@ def test_IsNaturalNum():
     assert condition.is_valid("foo") == False
     assert condition.is_valid("3f") == False
     assert condition.is_valid("1 0") == False
+    assert condition.is_valid("") == False
 
 
 def test_IsNaturalNumLessThan():
@@ -52,9 +53,19 @@ def test_IsNaturalNumLessThan():
 def test_IsLetters():
     condition = valid.IsLetters()
 
+    assert condition.is_valid("abfdsafjdsak") == True
+    assert condition.is_valid("Hello there") == True
+    assert condition.is_valid("            s                                                            m") == True
+    
+    assert condition.is_valid("") == False
+    assert condition.is_valid("abcd567") == False
+    assert condition.is_valid("  ") == False
+    assert condition.is_valid("Hello.there") == False
+    assert condition.is_valid("a'") == False
+
 
 def test_IsLettersAndSymbols():
-    condition = valid.IsLettersAndSymbols()
+    condition = valid.IsLettersAndSymbols("")
 
 
 def test_IsAlphanumeric():
@@ -62,8 +73,8 @@ def test_IsAlphanumeric():
 
 
 def test_IsAlphanumericAndSymbols():
-    condition = valid.IsAlphanumericAndSymbols()
+    condition = valid.IsAlphanumericAndSymbols("")
 
 
 def test_IsOption():
-    condition = valid.IsOption()
+    condition = valid.IsOption("", "")
