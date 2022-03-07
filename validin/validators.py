@@ -113,8 +113,12 @@ class IsAlphanumericAndSymbols(InputValidator):
         self.symbols = symbols
 
     def is_valid(self, input: str) -> bool:
-        input = remove_chars(input, self.symbols)
-        return input.replace(" ", "").isalnum()
+        if input.replace(" ", "") == "": return False
+
+        input = remove_chars(input, self.symbols + " ")
+        return (
+            input.isalnum() or input == ""
+        )
 
     def get_invalid_msg(self) -> str:
         return f"Must only contain letters, numbers and {seperate_by_commas(self.symbols)}"

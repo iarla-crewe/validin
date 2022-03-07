@@ -104,8 +104,22 @@ def test_IsAlphanumeric():
 
 
 def test_IsAlphanumericAndSymbols():
-    condition = valid.IsAlphanumericAndSymbols("")
+    condition = valid.IsAlphanumericAndSymbols("!.,")
 
+    assert condition.is_valid("Hello!") == True
+    assert condition.is_valid("And12345...")
+    assert condition.is_valid("fOo  45") == True
+    assert condition.is_valid(".2......") == True
+    
+    condition = valid.IsAlphanumericAndSymbols("#@")
+
+    assert condition.is_valid("                            #") == True
+    assert condition.is_valid("@the building") == True
+    assert condition.is_valid("123456789###") == True
+
+    assert condition.is_valid("Hello!") == False
+    assert condition.is_valid("@@@@.@@@@") == False
+    assert condition.is_valid("s0m3 t3xt h3r3.") == False
     assert condition.is_valid("") == False
     assert condition.is_valid("         ") == False
 
