@@ -1,4 +1,4 @@
-from validin.validin import InputValidator
+from validin import InputValidator
 from validin.utils import seperate_by_commas, remove_chars
 
 

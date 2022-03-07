@@ -1,11 +1,11 @@
-# InputValidatorPy
+# validin
 Console input validator for python, allows for any condition to be checked in a clean and consice syntax
 
 
 ## Docs (temporary):
 ```
-from input_validator import get_input
-import input_validator.validators as valid
+from validin import get_input
+import validin.validators as valid
 ```
 
 Use get_input to get valid user input
