@@ -127,5 +127,22 @@ def test_IsAlphanumericAndSymbols():
 def test_IsOption():
     condition = valid.IsOption("1", "2")
 
+    assert condition.is_valid("1") == True
+    assert condition.is_valid("2") == True
+
+    assert condition.is_valid("3") == False
+    assert condition.is_valid("  1    ") == False
+
+    condition = valid.IsOption("the first one", "some other thing", "foo")
+
+    assert condition.is_valid("the first one") == True
+    assert condition.is_valid("some other thing") == True
+    assert condition.is_valid("foo") == True
+
     assert condition.is_valid("") == False
     assert condition.is_valid("         ") == False
+    assert condition.is_valid("literally anything else") == False
+    assert condition.is_valid("123") == False
+    assert condition.is_valid("tHe first one") == False
+    assert condition.is_valid("FOO") == False
+    assert condition.is_valid("sómë óthër thíng") == False
