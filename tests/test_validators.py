@@ -70,8 +70,19 @@ def test_IsLetters():
 
 
 def test_IsLettersAndSymbols():
-    condition = valid.IsLettersAndSymbols("")
+    condition = valid.IsLettersAndSymbols("!.,")
 
+    assert condition.is_valid("Hello!") == True
+    assert condition.is_valid("fOo") == True
+    assert condition.is_valid(".......")
+    
+    condition = valid.IsLettersAndSymbols("#@")
+
+    assert condition.is_valid("                            #") == True
+    assert condition.is_valid("@the building") == True
+
+    assert condition.is_valid("Hello!") == False
+    assert condition.is_valid("@@@@.@@@@") == False
     assert condition.is_valid("") == False
     assert condition.is_valid("         ") == False
 
