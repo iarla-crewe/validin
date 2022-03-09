@@ -10,6 +10,11 @@ import validin.validators as valid
 
 Use get_input to get valid user input
 
+Example get_input() use:
+- name = get_input("What's your name? ", valid.IsLetters())
+- age = get_input("How old are you? ", valid.IsNaturalNumGreaterThan(18))
+
+
 Input Validators:
 - IsNaturalNum
 - IsNaturalNumLessThan

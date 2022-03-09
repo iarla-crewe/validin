@@ -55,6 +55,28 @@ def test_IsNaturalNumLessThan():
     assert condition.is_valid("2") == False
 
 
+def test_IsNaturalNumGreaterThan():
+    with pytest.raises(TypeError):
+        valid.IsNaturalNumGreaterThan("foo")
+    
+    condition = valid.IsNaturalNumGreaterThan("5")
+    assert condition.is_valid("1000") == True
+    assert condition.is_valid("6") == True
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
+    assert condition.is_valid("0") == False
+    assert condition.is_valid("4") == False
+    assert condition.is_valid("Three") == False
+    assert condition.is_valid("25.567") == False
+    assert condition.is_valid("-1") == False
+
+    condition = valid.IsNaturalNumGreaterThan("1.3")
+    assert condition.is_valid("2") == True
+    assert condition.is_valid("") == False
+    assert condition.is_valid("         ") == False
+    assert condition.is_valid("1") == False
+
+
 def test_IsLetters():
     condition = valid.IsLetters()
 

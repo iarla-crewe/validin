@@ -61,6 +61,27 @@ class IsNaturalNumLessThan(IsNaturalNum):
         return f"Must be a whole number between 0 and {self.limit}"
 
 
+class IsNaturalNumGreaterThan(IsNaturalNum):
+    """Input validator that returns true if the input is a natural number greater than a given number. Ignores whitespace on either side of input
+    
+    Args:
+        limit (str): Input must be higher than this number
+    """
+    limit: int
+    def __init__(self, limit: int) -> None:
+        try:
+            self.limit = float(limit)
+        except:
+            raise TypeError
+
+    def is_valid(self, input: str) -> bool:
+        input = input.strip()
+        return (super().is_valid(input) and int(input) > self.limit)
+
+    def get_invalid_msg(self) -> str:
+        return f"Must be a whole number greater than {self.limit}"
+
+
 class IsLetters(InputValidator):
     """Input validator that returns true if the input contains only letters and spaces"""
     def is_valid(self, input: str) -> bool:
